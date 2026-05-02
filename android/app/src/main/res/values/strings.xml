@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">cerebro-externo</string>
+    <string name="title_activity_main">cerebro-externo</string>
+    <string name="package_name">com.tuusuario.cerebroexterno</string>
+    <string name="custom_url_scheme">com.tuusuario.cerebroexterno</string>
+</resources>
