@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+:root {
+  /* Intentamos obtener el inset, si es 0, usamos 20px como margen de seguridad para botones de Xiaomi */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  /* Evita que el rebote del scroll ensucie la vista */
+  overflow: hidden; 
+  background-color: #0f172a; /* bg-slate-900 */
+}
+
+#app {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  /* Forzamos un margen inferior de 32px que subirá todo el layout */
+  padding-bottom: 32px !important; 
+  background-color: #0f172a;
+}
+
+/* Forzamos a que cualquier cosa con esta clase suba sí o sí */
+.safe-area-bottom {
+  padding-bottom: calc(var(--safe-bottom) + 24px) !important;
+}
