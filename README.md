@@ -12,7 +12,7 @@ Sistema de gestión de proyectos y optimización de carga cognitiva desarrollado
 ## 🛠️ Instalación y Uso
 
 1. Clonar el repositorio:
-   git clone https://github.com/tu-usuario/cortex-manager.git
+   git clone https://github.com/ZakiumyI/cerebro-externo
 
 2. Instalar dependencias:
    npm install
