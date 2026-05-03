@@ -1,6 +1,6 @@
 {
-  "name": "cerebro-externo",
-  "version": "0.0.0",
+  "name": "gestor-zk",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {

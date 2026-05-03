@@ -1,13 +1,16 @@
 {
-  "appId": "com.tuusuario.cerebroexterno",
-  "appName": "cerebro-externo",
+  "appId": "com.zakiumy.gestorzk",
+  "appName": "Gestor Zk",
   "webDir": "dist",
+  "bundledWebRuntime": false,
   "plugins": {
-    "Keyboard": {
-      "resize": "body"
-    },
-    "StatusBar": {
-      "overlaysWebView": true
+    "CapacitorSQLite": {
+      "androidIsEncryption": false,
+      "androidBiometric": {
+        "biometricAuth": false,
+        "biometricTitle" : "Zk Core Auth",
+        "biometricSubTitle" : "Control de acceso al Cortex"
+      }
     }
   }
 }

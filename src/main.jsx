@@ -11,28 +11,68 @@ const Root = () => {
 
   useEffect(() => {
     const setup = async () => {
-      try {
-        const db = await initDeviceDatabase();
-        if (db) {
-          await seedDatabase(db);
-          window.db = db; 
+      let retryCount = 0;
+      const maxRetries = 5;
+
+      const attemptInit = async () => {
+        try {
+          const db = await initDeviceDatabase();
+          
+          if (db) {
+            // Ejecutamos la semilla "silenciosa" (solo estructura base)
+            await seedDatabase(db); 
+            window.db = db;
+            setIsReady(true);
+          } else {
+            throw new Error("La base de datos retornó null");
+          }
+        } catch (err) {
+          console.error(`Intento ${retryCount + 1} fallido:`, err);
+          
+          if (retryCount < maxRetries) {
+            retryCount++;
+            setTimeout(attemptInit, 500); // Reintenta en 500ms
+          } else {
+            setError("Error crítico: No se pudo conectar con el motor SQLite nativo.");
+            setIsReady(true); // Para mostrar el mensaje de error en el render
+          }
         }
-      } catch (err) {
-        console.error("Error inicializando la base de datos:", err);
-        setError(err.message);
-      } finally {
-        setIsReady(true);
-      }
+      };
+
+      attemptInit();
     };
+
     setup();
   }, []);
 
+  // Pantalla de carga (Splash Screen de JS)
   if (!isReady) {
     return (
-      <div className="bg-slate-900 h-screen flex items-center justify-center text-white p-4 text-center">
-        <div className="flex flex-col gap-2 text-sm">
-          <div className="animate-pulse font-bold tracking-widest">INICIANDO CEREBRO...</div>
-          {error && <p className="text-red-400 text-xs mt-2 font-mono">Error: {error}</p>}
+      <div className="bg-slate-950 h-screen flex items-center justify-center text-blue-400 p-6 text-center">
+        <div className="flex flex-col gap-4 items-center">
+          <div className="w-12 h-12 border-4 border-blue-400/20 border-t-blue-400 rounded-full animate-spin"></div>
+          <div className="flex flex-col gap-1 font-mono uppercase tracking-[0.2em] text-xs">
+            <span className="font-bold">Iniciando Sistema</span>
+            <span className="opacity-50 text-[10px]">Cargando módulos nativos...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Pantalla de Error Crítico
+  if (error) {
+    return (
+      <div className="bg-slate-950 h-screen flex items-center justify-center p-8">
+        <div className="max-w-md w-full border border-red-900/50 bg-red-950/20 p-6 rounded-2xl text-center">
+          <h2 className="text-red-400 font-bold mb-2 uppercase tracking-tighter">Fallo de Inicialización</h2>
+          <p className="text-slate-400 text-sm font-mono mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg text-xs border border-red-500/30 transition-all"
+          >
+            REINTENTAR CONECTAR
+          </button>
         </div>
       </div>
     );
@@ -49,6 +89,4 @@ const container = document.getElementById('app');
 if (container) {
   const root = ReactDOM.createRoot(container);
   root.render(<Root />);
-} else {
-  console.error("No se encontró el elemento con id 'app'.");
 }

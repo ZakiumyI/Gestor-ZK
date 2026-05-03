@@ -41,7 +41,7 @@ const Historial = ({
 
       {/* 2. LOG DE ÉXITO */}
       <HistorialSection 
-        title="Log de Tareas Cumplidas" 
+        title="Tareas Cumplidas" 
         icon={Archive} 
         colorClass="text-blue-400"
         isEmpty={!tareasCompletadas.length}

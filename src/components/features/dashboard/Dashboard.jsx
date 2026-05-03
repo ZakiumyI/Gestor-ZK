@@ -15,10 +15,10 @@ const Dashboard = ({
       <header className="flex items-center justify-between mb-12 pt-6">
         <div>
           <h1 className="text-3xl font-black text-white tracking-tighter flex items-center gap-2">
-            EJECUCIÓN <Activity className="text-blue-500" size={24} />
+            PROYECTOS <Activity className="text-blue-500" size={24} />
           </h1>
           <p className="text-[10px] text-slate-500 uppercase tracking-[0.3em] font-bold italic">
-            ZAKIUMY_OS // PROCESS_MANAGER
+            MANEJA TUS TIEMPOS
           </p>
         </div>
         <button 

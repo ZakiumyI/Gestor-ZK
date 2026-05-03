@@ -1,13 +1,13 @@
 import React from 'react';
-import { LayoutDashboard, GraduationCap, Plus, History } from 'lucide-react';
+import { LayoutDashboard, GraduationCap, Plus, History, Activity } from 'lucide-react';
 import NavItem from './NavItem';
 
 const NAV_ITEMS = [
-  { id: 'dashboard', label: 'Frentes', icon: LayoutDashboard, color: 'text-blue-400', bg: 'bg-blue-500/10' },
+  { id: 'dashboard', label: 'Tareas', icon: LayoutDashboard, color: 'text-blue-400', bg: 'bg-blue-500/10' },
   { id: 'docencia', label: 'Clases', icon: GraduationCap, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
   { id: 'spacer', isSpacer: true },
   { id: 'historial', label: 'Hitos', icon: History, color: 'text-purple-400', bg: 'bg-purple-500/10' },
-  { id: 'config', label: 'Yo', customIcon: 'JS', color: 'text-amber-400', bg: 'bg-amber-500/10' },
+  { id: 'config', label: 'Stats', icon: Activity, color: 'text-amber-400', bg: 'bg-amber-500/10' },
 ];
 
 const Navigation = ({ activeTab, setActiveTab, onPlusClick }) => {

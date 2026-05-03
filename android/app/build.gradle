@@ -1,25 +1,46 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android' // Necesario para que el compilador reconozca Kotlin
 
 android {
-    namespace = "com.tuusuario.cerebroexterno"
-    compileSdk = rootProject.ext.compileSdkVersion
+    // Namespace actualizado con tu identidad de marca
+    namespace = "com.zakiumy.gestorzk" 
+    compileSdk = 36 // Subimos a 36 para soportar las librerías 1.11.0 y 1.17.0
+    
     defaultConfig {
-        applicationId "com.tuusuario.cerebroexterno"
+        applicationId "com.zakiumy.gestorzk"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        targetSdkVersion 34 // Mantenemos 34 para evitar cambios de comportamiento drásticos
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
-             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
-             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
-            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // Configuración para que el compilador entienda Java moderno
+    kotlinOptions {
+        jvmTarget = '17' 
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // Fuerza a todas las librerías a usar la misma versión de Kotlin
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion "1.9.20"
+            }
         }
     }
 }
@@ -40,6 +61,12 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+
+    // Restricciones para evitar conflictos de stdlib
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.20")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.20")
+    }
 }
 
 apply from: 'capacitor.build.gradle'
@@ -50,5 +77,5 @@ try {
         apply plugin: 'com.google.gms.google-services'
     }
 } catch(Exception e) {
-    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+    logger.info("google-services.json no found, google-services plugin not applied.")
 }

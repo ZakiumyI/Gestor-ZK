@@ -58,13 +58,27 @@ const GestionCategorias = ({ categorias = [], onAgregar, onBorrar }) => {
         <button 
           onClick={manejarAgregar}
           disabled={!nombre.trim()}
-          className={`px-6 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+          className={`p-3 rounded-full transition-all ${
             nombre.trim() 
               ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20' 
               : 'bg-slate-800 text-slate-500 cursor-not-allowed'
           }`}
+          aria-label="Añadir"
         >
-          Añadir
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            strokeWidth={3} 
+            stroke="currentColor" 
+            className="w-5 h-5"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              d="m4.5 12.75 6 6 9-13.5" 
+            />
+          </svg>
         </button>
       </div>
     </div>
