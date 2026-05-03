@@ -1,4 +1,4 @@
-# Cortex Project Manager 🧠
+# Gestor ZK 🧠
 
 Sistema de gestión de proyectos y optimización de carga cognitiva desarrollado con React y Capacitor. Este sistema centraliza flujos de trabajo de ingeniería, robótica y desarrollo personal.
 
@@ -12,7 +12,7 @@ Sistema de gestión de proyectos y optimización de carga cognitiva desarrollado
 ## 🛠️ Instalación y Uso
 
 1. Clonar el repositorio:
-   git clone https://github.com/ZakiumyI/cerebro-externo
+   git clone https://github.com/ZakiumyI/Gestor-ZK
 
 2. Instalar dependencias:
    npm install
